@@ -1,0 +1,12 @@
+# secrets and sessions
+.env
+.env.*
+archive/auth/
+# browser profile, raw MCP output, evidence, exports
+.playwright-profile/
+.playwright-mcp/
+screenshots/
+runs/
+api-results/
+api/collections/*.json
+node_modules/

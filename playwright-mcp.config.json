@@ -1,0 +1,13 @@
+{
+  "browser": {
+    "browserName": "chromium",
+    "userDataDir": "C:/Users/Rahul/Desktop/ClaudeAgent/.playwright-profile",
+    "launchOptions": {
+      "headless": false,
+      "args": [
+        "--remote-debugging-port=9222"
+      ]
+    }
+  },
+  "outputDir": "C:/Users/Rahul/Desktop/ClaudeAgent/screenshots"
+}

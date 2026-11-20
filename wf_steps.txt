@@ -1,0 +1,191 @@
+## 193166 Verify that a user with Read right can view but not change workflow templates
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. In Administrator, set Action Plan Library / Workflow Templates to Read only (Insert, Modify, Delete denied) for a non-admin test user, then log in as that user  =>  User should be logged in successfully
+  3. Open Workflows and click Manage Workflow Template  =>  The Workflow Templates screen should display
+  4. Expand a template  =>  Stages and tasks should display
+  5. Open the template dialog via View Details  =>  Details should display read-only and Save should be disabled
+  6. Click the more-actions menu of the template  =>  Only View Details should be available; Edit, Copy, Delete and Set up Automation should not be available
+  7. Check the New Workflow button  =>  New Workflow should not be available
+  8. Check Add Task and the delete icon of a task  =>  Add Task and task delete should be disabled
+## 193167 Verify that a user with Read right can start a workflow and tasks are created
+  1. Login to Maximizer Web Access as a user with Read right only on Workflow Templates  =>  User should be logged in successfully
+  2. Open a Contact List entry that has an Account Manager  =>  Entry should display
+  3. Select Actions then Start a workflow and start a sequential workflow  =>  Workflow should start and the first task should be created
+  4. Complete the first task  =>  The next sequential task should be created
+  5. Start a branched workflow and complete a task with the branch outcome  =>  The target workflow should start
+## 193168 Verify that a user without Read right cannot access workflows
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. In Administrator, deny the Read right on Action Plan Library / Workflow Templates for a non-admin test user, then log in as that user  =>  User should be logged in successfully
+  3. Check the left navigation  =>  The Workflows module should be hidden
+  4. Select a Contact List entry and check Start a workflow in the Actions panel and the Actions menu  =>  Both should be disabled
+  5. Open a task that belongs to a workflow  =>  The workflow name should be hidden in the Task dialog
+  6. Complete the last task of a branching workflow  =>  A message should display
+## 193169 Verify that Insert right allows creating templates but not editing or deleting
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. Set Read + Insert (Modify and Delete denied) for a non-admin test user and log in as that user  =>  User should be logged in successfully
+  3. Open Workflow Templates  =>  New Workflow should be enabled
+  4. Click the more-actions menu of a template  =>  View Details and Copy Workflow should be available; Edit Workflow, Set up Automation and Delete Workflow should not be available
+  5. Expand a template  =>  Add Task should be enabled
+  6. Check the delete icon of a task  =>  Task delete should be disabled
+  7. Deny the Insert right and log in again  =>  New Workflow and Copy Workflow should not be available
+## 193170 Verify that Modify right allows editing templates and tasks and Delete Workflow stays unavailable
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. Set Read + Modify (Insert and Delete denied) for a non-admin test user without Administrator role or Allow private entries, and log in as that user  =>  User should be logged in successfully
+  3. Open Workflow Templates  =>  New Workflow should not be available
+  4. Click the more-actions menu of a template  =>  Edit Workflow and Set up Automation should be available; Copy Workflow and Delete Workflow should not be available
+  5. Expand a template with no started workflow  =>  Task edit, task delete and Add Task should be enabled
+  6. Confirm no Allow private entries privilege or Administrator role is needed  =>  Template and task editing should be available without them
+## 193171 Verify that Delete right allows deleting a template but not tasks
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. Set Read + Delete (Insert and Modify denied) for a non-admin test user and log in as that user  =>  User should be logged in successfully
+  3. Click the more-actions menu of a template  =>  View Details and Delete Workflow should be available
+  4. Expand the template  =>  Task delete and Add Task should be disabled
+  5. Deny the Delete right and log in again  =>  Delete Workflow should not be available
+## 193172 Verify that Administrator shows the renamed "Action Plan Library / Workflow Templates" right
+  1. Login to Maximizer Web Access as MASTER and open Administrator, then Users, then a user, then Access Rights  =>  Access rights should display
+  2. Locate the workflow template right  =>  The label should read Action Plan Library / Workflow Templates
+  3. Toggle Read, Insert, Modify and Delete and save  =>  The settings should save
+## 193173 Verify that deleting an in-progress workflow depends on the workflow's own access right
+  1. Login as a user with Read + Delete on workflow templates and start a workflow on an entry  =>  The workflow should start
+  2. Try to delete the in-progress workflow as a user without Full access to it  =>  Deletion should be refused
+  3. Try again as a user with Full access to the workflow  =>  Deletion should succeed
+## 193176 Verify that an automation trigger starts a workflow on a matching company without manual start
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. Confirm the DB upgrade upgrade_29.1000 is applied on the test database and the workflow trigger service points at the test build and database  =>  The environment should be ready for the automation trigger test
+  3. Open Workflows and click Manage Workflow Template, then open a workflow template that has at least one task  =>  The Workflow Templates screen should display and the template should show its task
+  4. Click the more-actions menu of the template and select Set up Automation  =>  The Set up Automation dialog should display
+  5. Add a trigger whose condition already matches a test company and save  =>  The trigger should be saved successfully
+  6. Open the test company and confirm it has no active run of this workflow  =>  The company should display with no active run of this workflow
+  7. Wait for the next cycle of the trigger service (up to 60 minutes) and open the company again  =>  The workflow should have started on the company without anyone starting it manually
+  8. Open the tasks of the started workflow  =>  The first task of the workflow should exist
+  9. Remove the test trigger and the test workflow run after the test  =>  Test data should be cleaned up successfully
+## 193177 Verify that the workflow service user has only the Read right on Action Plan Library / Workflow Templates after the DB upgrade
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. Confirm the test database was upgraded with the build that includes DB script upgrade_29.1000  =>  The database upgrade should be applied
+  3. Run UserRead through the API as MASTER for the user WFSRVUSER  =>  The request should return successfully
+  4. Check the ActionPlanLibrary right in the response  =>  ActionPlanLibrary should show Create: false, Read: true, Update: false, Delete: false
+  5. In Administrator, open Users then WFSRVUSER then Access Rights and locate Action Plan Library / Workflow Templates  =>  Only the Read right should be granted; Insert, Modify and Delete should not be granted
+## 193178 Verify that an automation trigger does not start a workflow on a company that does not match the condition
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. Open Workflows and click Manage Workflow Template, then open Set up Automation on a template that has at least one task  =>  The Set up Automation dialog should display
+  3. Add a trigger whose condition matches only test company A and save  =>  The trigger should be saved successfully
+  4. Open test company B, which does not match the condition  =>  Company B should display with no active run of this workflow
+  5. Wait for the next cycle of the trigger service (up to 60 minutes) and open company B again  =>  No workflow should have started on company B
+  6. Open company A  =>  The workflow should have started on company A
+  7. Remove the test trigger and the test workflow run  =>  Test data should be cleaned up successfully
+## 193179 Verify that an automation trigger does not start a second run on a company that already has an active run
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. Add a trigger that matches a test company and wait for the workflow to start on it  =>  The workflow should be running on the company
+  3. Wait for another cycle of the trigger service (up to 60 minutes)  =>  The company should still show only one active run of the workflow
+  4. Remove the test trigger and the test workflow run  =>  Test data should be cleaned up successfully
+## 193180 Verify that an outcome branch starts the target workflow without depending on the DB upgrade or the user's Read right
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. Start a branched workflow on a test entry and open its first task  =>  The task should display
+  3. Complete the task with the branch outcome (for example Policy was canceled)  =>  The task should be completed
+  4. Open the same entry and check its workflows  =>  The target workflow should have started
+  5. Log in as a user without the Read right on Workflow Templates, start a second branched workflow and complete its task with the outcome  =>  The target workflow should start, even if a message displays
+## 193181 Verify that a triggered workflow does not start when WFSRVUSER has no Read right
+  1. Login to Maximizer Web Access as MASTER and open Administrator, then Users, then WFSRVUSER, then Access Rights  =>  Access rights should display
+  2. Deny the Read right on Action Plan Library / Workflow Templates for WFSRVUSER and save  =>  The settings should save
+  3. Add a trigger that matches a test company, then wait for the next cycle of the trigger service (up to 60 minutes)  =>  The workflow should not start on the company
+  4. Check the trigger service log for the WorkflowStart response  =>  The response should show -30003
+  5. Restore the Read right (Insert, Modify and Delete denied) for WFSRVUSER and remove the test trigger  =>  The rights should be restored, matching case 193177
+## 193182 Verify that a user with Read + Insert + Modify can delete a task but not the whole workflow template
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. In Administrator, set ABROWN's Action Plan Library / Workflow Templates to Read, Insert and Modify (Delete denied), then log in as ABROWN  =>  User should be logged in successfully
+  3. Open Workflows, click Manage Workflow Templates and expand a never-started template  =>  Stages and tasks should display
+  4. Delete a task from the template  =>  The task should be deleted successfully
+  5. Click the more-actions menu of the template  =>  Delete Workflow should not be available
+## 193183 Verify that stages follow the Modify right and Add Stage follows the Insert right
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. In Administrator, set ABROWN's Action Plan Library / Workflow Templates to Read and Modify only, then log in as ABROWN  =>  User should be logged in successfully
+  3. Expand a never-started template that has stages and edit, reorder and delete a stage  =>  Edit, reorder and delete of stages should work
+  4. In Administrator, change the right to Read and Insert only, then log in as ABROWN again  =>  User should be logged in successfully
+  5. Add a stage to the template  =>  The stage should be added
+  6. Try to edit and delete an existing stage  =>  Edit and delete of stages should not be available
+## 193184 Verify that tasks and stages of a started template stay locked and the template cannot be deleted even with all four rights
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. In Administrator, set ABROWN's Action Plan Library / Workflow Templates to Read, Insert, Modify and Delete, then log in as ABROWN  =>  User should be logged in successfully
+  3. Open Manage Workflow Templates and expand a template that has been started on a record  =>  Stages and tasks should display
+  4. Try to edit and delete a task and a stage  =>  Tasks and stages should be locked
+  5. Click the more-actions menu of the template and try Delete Workflow  =>  The template should not be deleted
+## 193185 Verify that Set up Automation is available only with the Modify right
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. In Administrator, set ABROWN's right to Read only, then log in as ABROWN and open the more-actions menu of a template  =>  Set up Automation should not be available
+  3. Repeat with Read + Insert  =>  Set up Automation should not be available
+  4. Repeat with Read + Delete  =>  Set up Automation should not be available
+  5. Repeat with Read + Modify  =>  Set up Automation should be available
+## 193186 Verify that Copy Workflow with the Insert right creates a copy with the same tasks and stages
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. In Administrator, set ABROWN's right to Read and Insert, then log in as ABROWN  =>  User should be logged in successfully
+  3. Open Manage Workflow Templates, click the more-actions menu of a template that has tasks and stages and choose Copy Workflow  =>  Copy Workflow dialog should display
+  4. Enter a name and save  =>  The copy should be created
+  5. Expand the copy  =>  The copy should have the same tasks and stages as the original
+## 193187 Verify that completing the first task of a workflow started by a Read-only user creates the next task
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. In Administrator, set ABROWN's right to Read only, then log in as ABROWN  =>  User should be logged in successfully
+  3. Open a test company and start a sequential template with two or more tasks assigned to ABROWN  =>  The workflow should start and the first task should be created
+  4. Mark the first task complete and save  =>  The task should save as completed
+  5. Open the tasks of the test company  =>  The next task of the workflow should be created
+## 193188 Verify that a branched workflow created with full rights still creates tasks and starts the branch after the user is reduced to Read
+  1. Login to Maximizer Web Access as ABROWN with Read, Insert, Modify and Delete and create a branched workflow with its associated templates  =>  The branched workflow should be created
+  2. Login as MASTER and set ABROWN's right to Read only  =>  The right should be saved
+  3. Log in as ABROWN again and start the workflow on a test company  =>  The workflow should start and its tasks should be created
+  4. Complete the task with the branch outcome  =>  The target workflow of the branch should start on the test company
+## 193189 Verify that completing a task assigned to another user requires Full access in that user's Hotlist
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. In Administrator, set ABROWN's right to Read only and make sure the Hotlist Full access of another test user does not include ABROWN  =>  Settings should be saved
+  3. Log in as ABROWN and start a template whose first task is assigned to that other user, then complete that task  =>  Completion should be refused and the next task should not be created
+  4. Add ABROWN to that user's Hotlist Full access, log in as ABROWN again and complete the task  =>  The task should complete and the next task should be created
+  5. Repeat with a task assigned to ABROWN and with a task assigned to no one  =>  Both should complete and the next task should be created
+## 193190 Verify that Hotlist Read access lets a user see another user's workflow task but not change it
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. Set another test user's Hotlist Read access to include ABROWN, and make sure a workflow task is assigned to that user  =>  Settings should be saved
+  3. Log in as ABROWN and open that user's task  =>  The task should display
+  4. Try to edit and complete the task  =>  The task should not be editable or completable
+## 193191 Verify that a rights change takes effect only after the user logs in again
+  1. Login to Maximizer Web Access as ABROWN with Read on Action Plan Library / Workflow Templates  =>  User should be logged in successfully
+  2. In another session, log in as MASTER and remove ABROWN's Read right  =>  The right should be saved
+  3. In ABROWN's session, try to start a workflow without logging out  =>  The old rights should still apply in this session
+  4. Log ABROWN out and log in again  =>  User should be logged in successfully
+  5. Open a test company and check Start a workflow  =>  Start a workflow should be disabled
+## 193192 Verify that a user starting a workflow by hand still needs the Read right on their own account
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. In Administrator, remove all Action Plan Library / Workflow Templates rights from ABROWN, then log in as ABROWN  =>  User should be logged in successfully
+  3. Open a test company and check Start a workflow  =>  Start a workflow should be disabled
+  4. As MASTER set ABROWN's right to Read, then log in as ABROWN again  =>  User should be logged in successfully
+  5. Open a test company and start a workflow  =>  The workflow should start
+## 193193 Verify that WorkflowCreate is refused for a user with only the Read right
+  1. Set ABROWN's Action Plan Library / Workflow Templates to Read only in Administrator and authenticate again through the API as ABROWN  =>  Authentication should succeed
+  2. Send WorkflowCreate with a valid workflow payload  =>  The request should be refused with -30000 Access Denied: Can't create Workflow
+## 193194 Verify that WorkflowStart succeeds with the Read right and is refused without it
+  1. Set ABROWN's right to Read only and authenticate again through the API as ABROWN  =>  Authentication should succeed
+  2. Create a test company and send WorkflowStart for a template with at least one task  =>  The workflow should start and the first task should be created
+  3. Remove ABROWN's Read right, authenticate again and send WorkflowStart  =>  The request should be refused
+## 193195 Verify that workflow template create, update and delete APIs each require the matching right
+  1. Set ABROWN's right to Read + Insert, authenticate again and call the template create, update and delete APIs  =>  Only create should succeed
+  2. Set the right to Read + Modify, authenticate again and call the same APIs  =>  Only update should succeed
+  3. Set the right to Read + Delete, authenticate again and call the same APIs  =>  Only delete of a whole template should succeed
+## 193196 Verify that UserRead returns the Action Plan Library permission flags set in Administrator
+  1. Set ABROWN's right to Read and Modify only in Administrator  =>  The right should be saved
+  2. As the admin user send UserRead for ABROWN with the ActionPlanLibrary permission scope  =>  Code should be 0
+  3. Check Permissions.ActionPlanLibrary in the response  =>  Create should be false, Read true, Update true and Delete false
+## 193197 Verify that Allow Private Entries alone no longer gives access to workflow templates
+  1. Login to Maximizer Web Access as MASTER  =>  User should be logged in successfully
+  2. In Administrator, give ABROWN Allow Private Entries and no Action Plan Library / Workflow Templates right  =>  The settings should be saved
+  3. Log in as ABROWN and check the icon bar  =>  The Workflows module should not be shown
+## 193198 Verify that a template with restricted read access is hidden from other users and its task shows Not available
+  1. Login to Maximizer Web Access as MASTER and set a template's read access to the admin user only, with one task assigned to ABROWN  =>  The template should be saved
+  2. Start the template on a test company  =>  The workflow should start
+  3. In Administrator, set ABROWN's right to Read, Insert and Modify, then log in as ABROWN and open Manage Workflow Templates  =>  The restricted template should not be listed
+  4. Open ABROWN's task from that template  =>  The Workflow line should read Not available (insufficient access rights)
+## 193199 Verify that Start a workflow is enabled on opportunity, customer service case and lead for a user with the Read right
+  1. Login to Maximizer Web Access as MASTER and set ABROWN's right to Read only, then log in as ABROWN  =>  User should be logged in successfully
+  2. Open an opportunity and check Start a workflow in the Actions panel and the Actions menu  =>  Start a workflow should be enabled
+  3. Repeat on a customer service case  =>  Start a workflow should be enabled
+  4. Repeat on a lead and start a workflow  =>  The workflow should start
+## 193200 Verify that removing the Read right does not break tasks of an already started workflow
+  1. Login to Maximizer Web Access as MASTER and start a template with two tasks assigned to ABROWN on a test company  =>  The workflow should start
+  2. In Administrator, remove ABROWN's Read right, then log in as ABROWN  =>  User should be logged in successfully
+  3. Open and complete the first task assigned to ABROWN  =>  The task should save as completed
+  4. Open the tasks of the test company  =>  The next task should be created
