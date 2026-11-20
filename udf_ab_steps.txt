@@ -1,0 +1,78 @@
+## 29497 Verify that clicking on Address Book link ‘User-Defined Fields for Address Book Entries page displayed’
+  1. Login to Maximizer Web Access  =>  Login should be successfully.
+  2. Click on the Administration  =>  A menu should be displayed with options
+  3. Click on Set Up User-Defined Fields  =>  Set Up User-Defined Fields dialog should be displayed
+  4. Click on Address Book tab  =>  UDFs for Address Book Entries should be displayed
+## 29498 Verify that following Content should be displayed on ‘User-Defined Fields for Address Book Entries’ page:
+  1. In the UDFs for Address Book Entries tab  =>  Search for fields text field, Search button, UDF columns
+## 29499 Verify that all the buttons are displayed in header and footer of the User-Defined field section.
+## 29500 Verify that all the button from the header and footer should works properly.
+## 29501 Verify that user can create different types of user-defined fields depending on the types of values required for the field.
+  1. Click on the Administration  =>  A menu should be displayed with options
+  2. Click on Set Up User-Defined Fields  =>  Set Up User-Defined Fields dialog should be displayed
+  3. Click on Address Book tab  =>  UDFs for Address Book Entries should be displayed
+  4. Click on New : Field drop down  =>  User Defined Field types should be displayed
+  5. Select any type from the drop down  =>  User should be able to create different types of user-defined fields depending on the types of values required for the field
+## 29502 Verify that by default all buttons are disabled except Add Field and Add Folder button
+## 29503 Verify that clicking on Add Folder button ‘Add Folder’ page displayed with following content:
+  1. Click on the Add Folder button  =>  Add Folder dialog should be displayed with following content: Parent folder field Folder name field Save and Cancel button
+## 29504 Verify that clicking Save button without entering the folder name, ‘Name is mandatory.’ warning message displays.
+## 29505 Verify that clicking on Cancel button user redirected to User-Defined Fields for Address Book page.
+  1. Click on the Add Folder button  =>  Add Folder dialog should be displayed
+  2. Click on Cancel button  =>  User should be redirected to User-Defined Fields for Address Book page
+## 29506 Verify that clicking on Save button entering the Folder Name the folder gets added under the selected Parent folder
+  1. Click on the Add Folder button  =>  Add Folder dialog should be displayed
+  2. Click on Save button after entering name  =>  Folder should get added under the selected Parent folder
+## 29507 Verify that clicking on Save button checking ‘Set to hidden’ button the folder gets added but displays in light color.
+  (no steps)
+## 29508 Verify that clicking on Add Field button the list containing the following field gets displayed:
+  1. Click on New : Field drop down  =>  List containing the following fields should get displayed : Alphanumeric Date Duration Formula&amp;nbsp;&amp;nbsp; Numeric Table yes/No
+## 29509 Verify that clicking on the link from the list user should be able to add the respected field.
+  1. Click on New : Field drop down  =>  User Defined Field types should be displayed
+  2. Select any field from the drop down  =>  User should be able to add the respected field
+## 29510 Verify that field gets added under the selected folder.
+  1. Click on New : Field drop down  =>  User Defined Field types should be displayed
+  2. Select any field from the drop down  =>  Add field dialog should be displayed
+  3. Fill the details and click on Save button  =>  Field should get added under the selected folder
+## 29511 Verify that user can copy the selected field by clicking on ‘Save As’ button
+  1. Select an field and click on Save As button  =>  User should be able to copy the selected field by clicking on ‘Save As’ button
+## 29512 Verify that Items button is disabled until the Table fields is added or selected from the list.
+  1. Select Table field from the list  =>  Items button should get enabled
+## 29513 Verify that clicking on Items button user can add items to table field
+  1. Select Table field from the list  =>  Items button should get enabled
+  2. Click on the Items button  =>  Set up items dialog should be displayed
+  3. In the setup items dialog  =>  User should be able to add items to table field
+## 29514 Verify that clicking on Cancel button the field does not gets deleted.
+  1. Select a field and click on delete button  =>  A warning message should be displayed with Ok and Cancel message
+  2. Click on Cancel button  =>  The field should not get deleted
+## 29515 Verify that clicking on OK button the field gets permanently deleted.
+  1. Select a field and click on delete button  =>  A warning message should be displayed with Ok and Cancel message
+  2. Click on OK button  =>  The field should get deleted
+## 29516 Warning: All the user-defined fields in the selected folder and in any subfolder below it will be PERMANENTLY deleted along with Address Book entry values for these fields. Are you sure you want to continue?
+## 29517 Verify that clicking on OK button all the folder and its containing fields also gets deleted.
+## 29518 Verify that clicking on Cancel button the folder and its field does not gets deleted.
+## 29519 Verify that selecting the folder or field and clicking on Move Up the folder or field gets moved up.
+  1. Select a field or folder and click on Move Up button  =>  The folder or field should get moved up
+## 29520 Verify that selecting the folder or field and clicking on Move Down the folder or field gets moved down.
+  1. Select a field or folder and click on Move Down button  =>  The folder or field should get moved down
+## 29521 Verify that selecting folder or field and clicking on Move To button, move to page displayed.
+  1. Select a field or folder and click on Move To button  =>  Move To dialog should get displayed
+## 29522 Verify that Move To page displayed with following content:
+  1. Select a field or folder and click on Move To button  =>  Move To dialog should get displayed
+  2. In the Move To dialog  =>  Name field Folder name drop-down Save button Cancel button
+## 29523 Verify that selecting the folder from the drop down and clicking on Save button the selected folder or field gets saved to the folder from the list.
+  1. Select a field or folder and click on Move To button  =>  Move To dialog should get displayed
+  2. Click on the folder name drop down  =>  A drop down menu should be displayed with folder names
+  3. Select a folder from drop down and click on Save button  =>  Selected folder or field should get saved to the folder from the list
+## 29524 Verify that selecting the folder and clicking on the Reset Order button user can reset the order of the fields in alphanumeric order.
+## 29525 Verify that User-Defined field list section displayed on following four columns:
+  1. In the Set Up User-Defined Fields dialog  =>  Name, Type, Applies To and Requested By these four columns should be displayed
+## 29526 Verify that Name column display the name of the field (For Example: Annual Sales, Partner Interest etc.)
+  1. In the Set Up User-Defined Fields dialog  =>  Name column should display the name of the field (For Example: Annual Sales, Partner Interest etc.)
+## 29527 Verify that Type column displays the Type of field (For Example: Folder, Alphanumeric etc.)
+  1. In the Set Up User-Defined Fields dialog  =>  Type column should display the Type of field (For Example: Folder, Alphanumeric etc.)
+## 29528 Verify that Requested by column displays the user names who requested the fields
+  1. In the Set Up User-Defined Fields dialog  =>  Requested by column should display the user names who requested the fields
+## 29529 Verify that Repeat the steps from 1 to 34 for Opportunities, Campaigns, Customer Service or Users entries
+## 29530 Verify that clicking on Delete button selecting the Field the warning message ‘Warning:
+## 29531 Verify that clicking on Delete button selecting the folder the warning message ‘Warning: All the user-defined fields in the selected folder and in any subfolder below it will be PERMANENTLY deleted along with Address Book entry values for these fields.

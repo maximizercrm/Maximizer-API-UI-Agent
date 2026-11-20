@@ -1,0 +1,49 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_type",
+      "mcp__playwright__browser_fill_form",
+      "mcp__playwright__browser_press_key",
+      "mcp__playwright__browser_select_option",
+      "mcp__playwright__browser_wait_for",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_console_messages",
+      "mcp__playwright__browser_network_requests",
+      "mcp__playwright__browser_hover",
+      "mcp__playwright__browser_tabs",
+      "Bash(node switch-user.mjs:*)",
+      "Bash(node tidy-screenshots.mjs)",
+      "Bash(node api-run.mjs:*)"
+    ],
+    "ask": [
+      "mcp__postman__deleteCollection",
+      "mcp__postman__mergeCollectionFork",
+      "mcp__postman__putCollection",
+      "mcp__postman__patchCollection",
+      "mcp__postman__deleteCollectionFolder",
+      "mcp__postman__deleteCollectionRequest",
+      "mcp__postman__createCollectionPullRequest",
+      "mcp__postman__updateCollectionRoles"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "mcp__playwright__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/tidy-screenshots.mjs\""
+          }
+        ]
+      }
+    ]
+  }
+}

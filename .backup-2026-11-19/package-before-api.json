@@ -1,0 +1,8 @@
+{
+  "name": "claudeagent-qa",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "playwright": "latest"
+  }
+}

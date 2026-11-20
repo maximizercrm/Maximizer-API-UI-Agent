@@ -1,0 +1,9 @@
+{
+  "name": "claudeagent-qa",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "newman": "^6.2.3",
+    "playwright": "latest"
+  }
+}
